@@ -1,0 +1,44 @@
+# Only files with extension and directories allowed
+*
+!*.*
+!*/
+
+# Unignore hidden files
+!.*
+
+# Ignore hidden folders
+.*/
+
+# Unignore no extension files
+!pwomxplayer
+!LICENCE
+
+# Ignore pycache
+__pycache__
+
+# Ignore python bytecode
+*.py[cod]
+
+# Ignore distribution files
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Ignore pip logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore Dolphin hidden files
+.directory
