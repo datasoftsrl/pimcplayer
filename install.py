@@ -370,10 +370,12 @@ def upload_all():
     ssh_file('{}{}'.format(pitile, dev['id']), ssh, out_name='.pitile')
     
     # upload service files
-    ssh_file(pwomxp_conf, ssh, permissions='0755')
-    ssh_command('mv pwomxplayer /etc/default', ssh, password, True, True)
-    ssh_file(pwomxp_serv, ssh, permissions='0755')
-    ssh_command('mv pwomxplayer /etc/init.d', ssh, password, True, True)
+    ssh_file(pwomxp_conf, ssh, out_name="pwomxplayer.conf", permissions='0755')
+    ssh_command('mv pwomxplayer.conf /etc/default/pwomxplayer', ssh, password,
+        True, True)
+    ssh_file(pwomxp_serv, ssh, out_name="pwomxplayer.serv", permissions='0755')
+    ssh_command('mv pwomxplayer.serv /etc/init.d/pwomxplayer', ssh, password,
+        True, True)
     ssh_command('update-rc.d pwomxplayer defaults', ssh, password, True, True)
     ssh_command('/etc/init.d/pwomxplayer start', ssh, password, True, True)
 
