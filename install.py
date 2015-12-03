@@ -205,17 +205,31 @@ def gen_config():
       type_='int',
       check=lambda e: e > -1
     )
-    # formula: bezel in pixel is equal to 1 px/mm for bezel in millimeters
+# formula: bezel in pixel is equal to 1 px/mm for bezel in millimeters
     # 1 px/mm is calculated with monitor width in pixel divided by monitor
     # width in millimeters.
     info['bezel'] = round(info['width'] / info['mm_width'] * mm_bezel)
+
+    # wall size is monitor size for number of monitors
+    info['wall_width'] = (info['width'] * info['arr_col']) + \
+        2 * info['bezel']
+    info['wall_height'] = (info['height'] * info['arr_row']) + \
+        2 * info['bezel']
+    
+    # write wall config to file
+    wall.write('[{}]\n'.format(info['wall']))
+    wall.write('x={}\n'.format(info['wall_x']))
+    wall.write('y={}\n'.format(info['wall_y']))
+    wall.write('width={}\n'.format(info['wall_width']))
+    wall.write('height={}\n'.format(info['wall_height']))
+    wall.write('\n')
     
     info['monitors'] = []
     count = 1
     for i in range(info['arr_row']):
-      x = 0 if i == 0 else (i * info['width']) + info['bezel']
+      x = 0 if i == 0 else (i * info['width']) + 2*info['bezel']
       for k in range(info['arr_col']):
-        y = 0 if k == 0 else (k * info['height']) + info['bezel']
+        y = 0 if k == 0 else (k * info['height']) + 2*info['bezel']
         monitor = {
           'id': count,
           'name': rand_name(),
